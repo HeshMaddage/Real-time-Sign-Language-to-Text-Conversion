@@ -208,9 +208,17 @@ __marimo__/
 
 data/raw/*
 data/processed/*
+data/raw/test/*
+data/raw/train/*
+data/processed/test/*
+data/processed/train/*
 
 !data/raw/.gitkeep
+!data/raw/test/.gitkeep
+!data/raw/train/.gitkeep
 !data/processed/.gitkeep
+!data/processed/test/.gitkeep
+!data/processed/train/.gitkeep
 
 models/*.h5
 models/*.pth
