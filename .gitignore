@@ -207,14 +207,12 @@ marimo/_lsp/
 __marimo__/
 
 
-data/raw/**/*
-data/processed/**/*
 
-!data/raw/**/.gitkeep
-!data/processed/**/.gitkeep
+data/**/*
 
-!data/raw/test/.gitkeep
-!data/raw/train/.gitkeep
+!data/**/
+
+!**/.gitkeep
 
 models/*.h5
 models/*.pth
