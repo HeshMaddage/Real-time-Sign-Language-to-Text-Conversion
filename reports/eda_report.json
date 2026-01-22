@@ -1,0 +1,76 @@
+{
+    "timestamp": "2026-01-23T00:00:26.706432",
+    "dataset_path": "../data/raw/train",
+    "dataset_overview": {
+        "num_classes": 5,
+        "class_names": [
+            "A",
+            "M",
+            "S",
+            "space",
+            "nothing"
+        ]
+    },
+    "data_quality": {
+        "total_images_checked": 87000,
+        "num_corrupted_images": 0,
+        "empty_folders": []
+    },
+    "class_distribution": {
+        "A": 3000,
+        "B": 3000,
+        "C": 3000,
+        "D": 3000,
+        "E": 3000,
+        "F": 3000,
+        "G": 3000,
+        "H": 3000,
+        "I": 3000,
+        "J": 3000,
+        "K": 3000,
+        "L": 3000,
+        "M": 3000,
+        "N": 3000,
+        "O": 3000,
+        "P": 3000,
+        "Q": 3000,
+        "R": 3000,
+        "S": 3000,
+        "T": 3000,
+        "U": 3000,
+        "V": 3000,
+        "W": 3000,
+        "X": 3000,
+        "Y": 3000,
+        "Z": 3000,
+        "del": 3000,
+        "nothing": 3000,
+        "space": 3000
+    },
+    "image_shape_analysis": {
+        "most_common_shapes": [
+            [
+                [
+                    200,
+                    200,
+                    3
+                ],
+                1450
+            ]
+        ]
+    },
+    "pixel_intensity_analysis": {
+        "normalization_required": true,
+        "contrast_sufficient": true,
+        "notes": "Pixel values span full grayscale range with multimodal distribution."
+    },
+    "preprocessing_decisions": {
+        "resize": [
+            64,
+            64
+        ],
+        "grayscale": true,
+        "normalization": "0-1 scaling",
+        "temporal_smoothing_required": true
+    }
+}
