@@ -1,0 +1,43 @@
+{
+    "timestamp": "2026-01-23T00:00:00",
+    "model": {
+        "architecture": "MobileNetV2",
+        "variant": "finetuned",
+        "num_classes": 29
+    },
+    "dataset": {
+        "test_path": "../data/raw/test",
+        "total_samples": 56,
+        "evaluated_classes": 28,
+        "dataset_type": "static image test set",
+        "note": "Each class contains a single sample image"
+    },
+    "overall_performance": {
+        "accuracy": 1.0
+    },
+    "class_wise_performance": {
+        "precision": "1.00 for all classes",
+        "recall": "1.00 for all classes",
+        "f1_score": "1.00 for all classes"
+    },
+    "confusion_matrix_analysis": {
+        "perfect_diagonal": true,
+        "misclassifications": 0
+    },
+    "per_class_accuracy": {
+        "all_classes": "1.00"
+    },
+    "observations": [
+        "The model achieved 100% accuracy on the provided test dataset.",
+        "The confusion matrix shows perfect classification with no off-diagonal errors.",
+        "All classes achieved precision, recall, and F1-score of 1.00, indicating consistent performance.",
+        "No misclassifications were observed during evaluation."
+    
+    ],
+    "limitations": [
+        "Very small test dataset",
+        "Lack of variation in lighting, background and hand positioning",
+        "Does not reflect real time or continuous gesture scenarios"
+    ],
+    "conclusion": "The model demonstrates excellent performance under controlled conditions but requires further validation on more diverse and real-world data to confirm its robustness."
+}
