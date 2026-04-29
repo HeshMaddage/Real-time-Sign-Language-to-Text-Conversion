@@ -4,3 +4,6 @@ mediapipe
 matplotlib
 scikit-learn
 pandas
+torch
+torchvision
+seaborn
