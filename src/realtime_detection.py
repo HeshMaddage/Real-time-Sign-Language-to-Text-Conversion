@@ -183,7 +183,7 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 try:
     with open(MAPPING_PATH, 'r') as f:
         # Assuming mapping is like {"A": 0, "B": 1...}, we need to reverse it to {0: "A", 1: "B"...}
-        class_mapping = json.load(f)
+        class_mapping = json.load(f)["class_to_index"]
         idx_to_class = {v: k for k, v in class_mapping.items()}
 except Exception as e:
     print(f"Warning: Could not load class mapping. Error: {e}")
@@ -204,17 +204,24 @@ def preprocess_frame(frame):
     # 1. Resize the frame to match what the model was trained on
     img = cv2.resize(frame, INPUT_SIZE)
     
-    # 2. Convert BGR (OpenCV default) to RGB
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # # 2. Convert BGR (OpenCV default) to RGB
+    # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+    # 2. Convert BGR (OpenCV default) to Grayscale
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
-    # 3. Scale pixel values. 
+    # 3. Duplicate the grayscale channel to 3 channels (MobileNetV2 expects 3 channels)
+    img = cv2.cvtColor(gray_img, cv2.COLOR_GRAY2RGB)
+
+    
+    # 4. Scale pixel values. 
     # In your notebook you used: plt.imshow((X_train[0] + 1) / 2)
     # This implies your training data was scaled between [-1, 1].
     # So we map [0, 255] -> [0, 1] -> [-1, 1]
     img = img.astype(np.float32) / 255.0
     img = (img * 2.0) - 1.0 
     
-    # 4. Format for PyTorch (C, H, W) and add batch dimension (1, C, H, W)
+    # 5. Format for PyTorch (C, H, W) and add batch dimension (1, C, H, W)
     img = np.transpose(img, (2, 0, 1))
     tensor = torch.tensor(img).unsqueeze(0).float()
     return tensor
