@@ -1,0 +1,92 @@
+{
+    "timestamp": "2026-05-05T22:17:18.830337",
+    "dataset_path": "../data_2/raw/train",
+    "dataset_overview": {
+        "num_classes": 5,
+        "class_names": [
+            "A",
+            "M",
+            "S",
+            "space",
+            "nothing"
+        ]
+    },
+    "data_quality": {
+        "total_images_checked": 223074,
+        "num_corrupted_images": 0,
+        "empty_folders": []
+    },
+    "class_distribution": {
+        "A": 8458,
+        "B": 8309,
+        "Y": 8178,
+        "C": 8146,
+        "O": 8140,
+        "S": 8109,
+        "X": 8093,
+        "T": 8054,
+        "F": 8031,
+        "U": 8023,
+        "R": 8021,
+        "Q": 7954,
+        "I": 7953,
+        "L": 7939,
+        "N": 7932,
+        "H": 7906,
+        "M": 7900,
+        "K": 7876,
+        "G": 7844,
+        "W": 7787,
+        "E": 7744,
+        "D": 7629,
+        "P": 7601,
+        "V": 7597,
+        "J": 7503,
+        "Z": 7410,
+        "space": 7071,
+        "del": 6836,
+        "nothing": 3030
+    },
+    "image_shape_analysis": {
+        "most_common_shapes": [
+            [
+                [
+                    480,
+                    640,
+                    3
+                ],
+                1039
+            ],
+            [
+                [
+                    200,
+                    200,
+                    3
+                ],
+                250
+            ],
+            [
+                [
+                    1920,
+                    1920,
+                    3
+                ],
+                161
+            ]
+        ]
+    },
+    "pixel_intensity_analysis": {
+        "normalization_required": true,
+        "contrast_sufficient": true,
+        "notes": "Pixel values span full grayscale range with multimodal distribution."
+    },
+    "preprocessing_decisions": {
+        "resize": [
+            64,
+            64
+        ],
+        "grayscale": true,
+        "normalization": "0-1 scaling",
+        "temporal_smoothing_required": true
+    }
+}
