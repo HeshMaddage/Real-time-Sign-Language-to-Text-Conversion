@@ -6,30 +6,72 @@ import numpy as np
 import json
 
 # ================= Configuration =================
-MODEL_PATH = 'notebooks/best_model_finetuned.pth'
-MAPPING_PATH = 'data/processed/class_mapping.json'
+MODEL_PATH = 'notebooks_2/outputs/best_model.pth'
+MAPPING_PATH = 'notebooks_2/outputs/class_names.json'
 NUM_CLASSES = 29
 INPUT_SIZE = (224, 224) # Adjust if your training images had a different resolution
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+# # ================= Load Mapping ==================
+# try:
+#     with open(MAPPING_PATH, 'r') as f:
+#         # Assuming mapping is like {"A": 0, "B": 1...}, we need to reverse it to {0: "A", 1: "B"...}
+#         class_mapping = json.load(f)["class_to_index"]
+#         idx_to_class = {v: k for k, v in class_mapping.items()}
+# except Exception as e:
+#     print(f"Warning: Could not load class mapping. Error: {e}")
+#     # Fallback to string indices if missing
+#     idx_to_class = {i: str(i) for i in range(NUM_CLASSES)}
+
 # ================= Load Mapping ==================
 try:
     with open(MAPPING_PATH, 'r') as f:
-        # Assuming mapping is like {"A": 0, "B": 1...}, we need to reverse it to {0: "A", 1: "B"...}
-        class_mapping = json.load(f)["class_to_index"]
-        idx_to_class = {v: k for k, v in class_mapping.items()}
+        loaded_mapping = json.load(f)
+
+        # Convert string keys to integer keys
+        idx_to_class = {int(k): v for k, v in loaded_mapping.items()}
+
+    print("Class mapping loaded successfully!")
+
 except Exception as e:
     print(f"Warning: Could not load class mapping. Error: {e}")
-    # Fallback to string indices if missing
+
+    # Fallback labels
     idx_to_class = {i: str(i) for i in range(NUM_CLASSES)}
+
+# # ================= Load Model ====================
+# print("Loading model...")
+# model = models.mobilenet_v2(pretrained=False) # No need to download pretrained weights again
+# model.classifier[1] = nn.Linear(model.classifier[1].in_features, NUM_CLASSES)
+# model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
+# model = model.to(DEVICE)
+# model.eval() # Set to evaluation mode
+# print("Model loaded successfully!")
 
 # ================= Load Model ====================
 print("Loading model...")
-model = models.mobilenet_v2(pretrained=False) # No need to download pretrained weights again
-model.classifier[1] = nn.Linear(model.classifier[1].in_features, NUM_CLASSES)
-model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
+
+# Create EfficientNet model
+model = models.efficientnet_b0(weights=None)
+
+# Replace final classification layer
+model.classifier[1] = nn.Linear(
+    model.classifier[1].in_features,
+    NUM_CLASSES
+)
+
+# Load checkpoint
+checkpoint = torch.load(MODEL_PATH, map_location=DEVICE)
+
+# Load trained weights
+model.load_state_dict(checkpoint["model_state"])
+
+# Move to device
 model = model.to(DEVICE)
-model.eval() # Set to evaluation mode
+
+# Evaluation mode
+model.eval()
+
 print("Model loaded successfully!")
 
 # ================= Helper Function ===============
