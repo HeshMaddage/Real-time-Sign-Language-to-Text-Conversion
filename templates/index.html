@@ -496,7 +496,7 @@ footer span { color: var(--text2); }
       <div class="sentence-box" id="sentenceBox">
         <span id="sentenceText"></span><span class="cursor"></span>
       </div>
-      <div class="sentence-actions">
+      <!-- <div class="sentence-actions">
         <button class="btn btn-ghost" onclick="copyText()" style="flex:1">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           Copy
@@ -505,7 +505,21 @@ footer span { color: var(--text2); }
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
           Clear
         </button>
+      </div> -->
+      <div class="sentence-actions">
+        <button class="btn btn-ghost" onclick="copyText()" style="flex:1">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+        <button class="btn btn-warn" onclick="clearSentence()" style="flex:1">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+          Clear
+        </button>
       </div>
+      <button class="btn btn-ghost btn-full" onclick="downloadText()">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download .txt
+      </button>
     </div>
 
     <!-- Controls -->
@@ -623,6 +637,19 @@ async function toggleDetection() {
     btn.innerHTML   = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Detection Paused`;
     dot.className   = "status-dot off";
   }
+}
+
+function downloadText() {
+  const txt = document.getElementById("sentenceText").textContent;
+  if (!txt) return;
+
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
+  const filename  = `asl-session-${timestamp}.txt`;
+
+  const blob = URL.createObjectURL(new Blob([txt], { type: "text/plain" }));
+  const a    = Object.assign(document.createElement("a"), { href: blob, download: filename });
+  a.click();
+  URL.revokeObjectURL(blob);
 }
 
 // ── Clear sentence ─────────────────────────────────────────────────────────
