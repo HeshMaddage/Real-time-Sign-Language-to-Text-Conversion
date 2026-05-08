@@ -92,7 +92,7 @@ shared_state = {
 prob_buffer  = deque(maxlen=SMOOTHING_WINDOW)
 last_letter  = None
 letter_hold  = 0
-HOLD_FRAMES  = 5   # frames to hold before appending to sentence
+HOLD_FRAMES  = 7   # frames to hold before appending to sentence
 
 # ═══════════════════════════════════════════════════════════
 #  INFERENCE FUNCTION
